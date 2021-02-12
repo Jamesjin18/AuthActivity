@@ -23,7 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
+    private boolean authenticated = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText username = (EditText) findViewById(R.id.username);
         final EditText password = (EditText) findViewById(R.id.password);
         final TextView result = (TextView) findViewById(R.id.result);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -52,14 +53,15 @@ public class MainActivity extends AppCompatActivity {
                                 String s = readStream(in);
                                 Log.i("JFL", s);
                                 final JSONObject res = new JSONObject(s);
+                                authenticated = res.getBoolean("authenticated");
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (true){
-                                            result.setText("res");
+                                        if(MainActivity.this.authenticated){
+                                            result.setText("Welcome");
+                                        }else{
+                                            result.setText("credential error. Please retry.");
                                         }
-
-
                                     }
                                 });
                             } catch (JSONException e) {

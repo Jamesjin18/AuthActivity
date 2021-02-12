@@ -16,33 +16,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
+public class FlickrApp extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = (Button) findViewById(R.id.authenticate);
+        Button button = (Button) findViewById(R.id.getImage);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                URL url = null;
-                try {
-                    url = new URL("https://www.android.com/");
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    try {
-                        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                        String s = readStream(in);
-                        Log.i("JFL", s);
-                    } finally {
-                        urlConnection.disconnect();
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
     }

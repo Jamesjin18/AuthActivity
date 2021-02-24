@@ -5,7 +5,6 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,6 +46,12 @@ public class AsyncFlickrJSONData extends AsyncTask<String,Void, JSONObject> {
     protected void onPostExecute(JSONObject result) {
         if (result != null){
             Log.i("jsonObject", result.toString());
+            try {
+                String URLimage = result.getJSONArray("items").getJSONObject(0).getJSONObject("media").getString("m");
+                Log.i("item 0:", URLimage);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }else{
             Log.e("Error", "Error: jsonObject is null");
         }

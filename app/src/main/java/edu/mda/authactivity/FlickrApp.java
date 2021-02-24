@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,7 @@ import java.io.InputStreamReader;
 
 
 public class FlickrApp extends AppCompatActivity {
+    private ImageView image ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +35,4 @@ public class FlickrApp extends AppCompatActivity {
         is.close();
         return sb.toString();
     }
-
 }

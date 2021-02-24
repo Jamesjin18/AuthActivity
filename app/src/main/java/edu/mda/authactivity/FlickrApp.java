@@ -3,7 +3,6 @@ package edu.mda.authactivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -14,18 +13,28 @@ import java.io.InputStreamReader;
 
 
 public class FlickrApp extends AppCompatActivity {
-    private ImageView image ;
+    private static ImageView image ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button button = (Button) findViewById(R.id.getImage);
+        image = (ImageView) findViewById(R.id.image);
 
         button.setOnClickListener(new GetImageOnClickListener() {
 
         });
     }
+
+    public static ImageView getImage() {
+        return image;
+    }
+
+    public static void setImage(ImageView image) {
+        FlickrApp.image = image;
+    }
+
     private String readStream(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);

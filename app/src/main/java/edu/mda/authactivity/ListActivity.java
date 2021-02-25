@@ -3,10 +3,13 @@ package edu.mda.authactivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import java.util.Vector;
 
 public class ListActivity extends AppCompatActivity {
     
@@ -20,10 +23,13 @@ public class ListActivity extends AppCompatActivity {
 
     }
     public class MyAdapter extends BaseAdapter{
+        //a vector that store all url
+        Vector<String> vector;
 
+        //return the number of url
         @Override
         public int getCount() {
-            return 0;
+            return vector.size();
         }
 
         @Override
@@ -38,7 +44,12 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            Log.i("JFL", "TODO");
+
             return null;
+        }
+        public void dd(String url){
+            vector.add(url);
         }
     }
 }

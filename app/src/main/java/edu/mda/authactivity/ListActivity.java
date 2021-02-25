@@ -18,8 +18,12 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         ListView lv = (ListView) findViewById(R.id.list);
+        String url = "https://www.flickr.com/services/feeds/photos_public.gne?tags=trees&format=json";
         MyAdapter adapter = new MyAdapter();
         lv.setAdapter(adapter);
+
+        AsyncFlickrJSONDataForList asyncTaskList = new AsyncFlickrJSONDataForList(adapter);
+        asyncTaskList.execute(url);
 
     }
     public class MyAdapter extends BaseAdapter{
@@ -49,6 +53,7 @@ public class ListActivity extends AppCompatActivity {
             return null;
         }
         public void dd(String url){
+            Log.i("JFL", "Adding to adapter url : " + url);
             vector.add(url);
         }
     }

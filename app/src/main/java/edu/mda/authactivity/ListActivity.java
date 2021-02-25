@@ -28,7 +28,7 @@ public class ListActivity extends AppCompatActivity {
     }
     public class MyAdapter extends BaseAdapter{
         //a vector that store all url
-        Vector<String> vector;
+        Vector<String> vector = new Vector<String>();
 
         //return the number of url
         @Override

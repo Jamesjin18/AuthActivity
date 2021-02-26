@@ -21,21 +21,23 @@ public class AsyncFlickrJSONData extends AsyncTask<String,Void, JSONObject> {
         Log.i("URL",stringUrl);
         JSONObject jsonObject = null;
         //Create a URL object holding our url
-        URL myUrl = null;
+        URL myUrl;
         try {
             myUrl = new URL(stringUrl);
+            //opens the connection to a specified URL
             HttpURLConnection URLConnection = (HttpURLConnection) myUrl.openConnection();
             try {
+                //BufferedInputStream allow us to read a stream of data through a buffer
                 InputStream in = new BufferedInputStream(URLConnection.getInputStream());
+                //get the JsonObject
                 String s = readStream(in);
                 jsonObject = new JSONObject(s);
 
             }finally {
+                //disconnect the Http connection
                 URLConnection.disconnect();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -43,10 +45,11 @@ public class AsyncFlickrJSONData extends AsyncTask<String,Void, JSONObject> {
     }
     protected void onPostExecute(JSONObject result) {
         if (result != null){
-            Log.i("jsonObject", result.toString());
             try {
+                //get the link of the picture
                 String URLimage = result.getJSONArray("items").getJSONObject(0).getJSONObject("media").getString("m");
                 Log.i("item 0:", URLimage);
+                //set a new async task to set the image view with the picture
                 new AsyncBitmapDownloader().execute(URLimage);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -56,6 +59,7 @@ public class AsyncFlickrJSONData extends AsyncTask<String,Void, JSONObject> {
         }
 
     }
+
     private String readStream(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);

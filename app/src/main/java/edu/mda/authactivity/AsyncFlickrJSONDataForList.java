@@ -24,25 +24,27 @@ public class AsyncFlickrJSONDataForList extends AsyncTask<String,Void, JSONObjec
 
     @Override
     protected JSONObject doInBackground(String... params){
+        //url with Json format
         String stringUrl = params[0]+"&nojsoncallback=1";
         Log.i("URL",stringUrl);
         JSONObject jsonObject = null;
         //Create a URL object holding our url
-        URL myUrl = null;
+        URL myUrl;
         try {
             myUrl = new URL(stringUrl);
+            //opens the connection to a specified URL
             HttpURLConnection URLConnection = (HttpURLConnection) myUrl.openConnection();
             try {
+                //BufferedInputStream allow us to read a stream of data through a buffer
                 InputStream in = new BufferedInputStream(URLConnection.getInputStream());
+                //get the JsonObject
                 String s = readStream(in);
                 jsonObject = new JSONObject(s);
 
             }finally {
                 URLConnection.disconnect();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
@@ -50,7 +52,6 @@ public class AsyncFlickrJSONDataForList extends AsyncTask<String,Void, JSONObjec
     }
     protected void onPostExecute(JSONObject result) {
         if (result != null){
-            Log.i("jsonObject", result.toString());
             try {
                 String URLimage = result.getJSONArray("items").getJSONObject(0).getJSONObject("media").getString("m");
                 Log.i("item 0:", URLimage);
@@ -59,6 +60,7 @@ public class AsyncFlickrJSONDataForList extends AsyncTask<String,Void, JSONObjec
                 for (int i = 0; i < ja.length(); i++) {
                     adapter.dd(ja.getJSONObject(i).getJSONObject("media").getString("m"));
                 }
+                //set notifyDataSetChanged to the adapter
                 adapter.notifyDataSetChanged();
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -3,7 +3,6 @@ package edu.mda.authactivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.AnimatedStateListDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,15 +11,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-
 import java.util.Vector;
-import java.util.zip.Inflater;
 
 public class ListActivity extends AppCompatActivity {
     
@@ -39,9 +34,9 @@ public class ListActivity extends AppCompatActivity {
     }
     public class MyAdapter extends BaseAdapter{
         //a vector that store all url
-        Vector<String> vector = new Vector<String>();
+        Vector<String> vector = new Vector<>();
 
-        //return the number of url
+        //return the number of url in vector
         @Override
         public int getCount() {
             return vector.size();
@@ -56,6 +51,7 @@ public class ListActivity extends AppCompatActivity {
         public long getItemId(int position) {
             return 0;
         }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -83,6 +79,7 @@ public class ListActivity extends AppCompatActivity {
                     iv.setImageBitmap(response);
 
                 }
+
             },0,0, ImageView.ScaleType.CENTER_CROP,null, new Response.ErrorListener() {
 
                 @Override
